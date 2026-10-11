@@ -12,9 +12,59 @@ static unsigned int VAO;
 static unsigned int VBO;
 
 static float vertices[] = {
-     0.0f,  0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f
+    // Front face
+    -0.5f, -0.5f,  0.5f,
+     0.5f, -0.5f,  0.5f,
+     0.5f,  0.5f,  0.5f,
+
+     0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f,  0.5f,
+    -0.5f, -0.5f,  0.5f,
+
+    // Back face
+    -0.5f, -0.5f, -0.5f,
+     0.5f,  0.5f, -0.5f,
+     0.5f, -0.5f, -0.5f,
+
+     0.5f,  0.5f, -0.5f,
+    -0.5f, -0.5f, -0.5f,
+    -0.5f,  0.5f, -0.5f,
+
+    // Left face
+    -0.5f, -0.5f, -0.5f,
+    -0.5f, -0.5f,  0.5f,
+    -0.5f,  0.5f,  0.5f,
+
+    -0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f, -0.5f,
+    -0.5f, -0.5f, -0.5f,
+
+    // Right face
+     0.5f, -0.5f, -0.5f,
+     0.5f,  0.5f,  0.5f,
+     0.5f, -0.5f,  0.5f,
+
+     0.5f,  0.5f,  0.5f,
+     0.5f, -0.5f, -0.5f,
+     0.5f,  0.5f, -0.5f,
+
+    // Top face
+    -0.5f,  0.5f, -0.5f,
+     0.5f,  0.5f, -0.5f,
+     0.5f,  0.5f,  0.5f,
+
+     0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f,  0.5f,
+    -0.5f,  0.5f, -0.5f,
+
+    // Bottom face
+    -0.5f, -0.5f, -0.5f,
+     0.5f, -0.5f,  0.5f,
+     0.5f, -0.5f, -0.5f,
+
+     0.5f, -0.5f,  0.5f,
+    -0.5f, -0.5f, -0.5f,
+    -0.5f, -0.5f,  0.5f
 };
 
 int renderer_init(void)
@@ -66,7 +116,11 @@ glBufferData(
 void renderer_render(void)
 {
     glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+
+    glClear(
+        GL_COLOR_BUFFER_BIT |
+        GL_DEPTH_BUFFER_BIT
+    );
 
     shader_use(shader_program);
 
@@ -76,6 +130,7 @@ void renderer_render(void)
 
     glBindVertexArray(0);
 }
+
 void renderer_shutdown(void)
 {
     glDeleteBuffers(1, &VBO);

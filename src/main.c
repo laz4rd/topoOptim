@@ -33,7 +33,6 @@ int main(void)
     }
 
     glfwMakeContextCurrent(window);
-
     if (!gladLoadGL((GLADloadfunc)glfwGetProcAddress))
     {
         printf("Failed to initialize GLAD\n");
@@ -41,6 +40,9 @@ int main(void)
         glfwTerminate();
         return 1;
     }
+
+    glEnable(GL_DEPTH_TEST); 
+
 
     printf("OpenGL: %s\n", glGetString(GL_VERSION));
     printf("Renderer: %s\n", glGetString(GL_RENDERER));
